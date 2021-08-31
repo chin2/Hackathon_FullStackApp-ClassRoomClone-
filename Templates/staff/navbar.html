@@ -1,0 +1,103 @@
+<div id="mySidenav" class="sidenav">
+    <a href="#" class="closebtn" style="color:  white;" onclick="closeNav()">&times;</a>
+    <a href="{% url 'classlist' user.id %}">Class</a>
+    <a href="{% url 'testlist' user.id %}">Test </a>
+    <a href="{% url 'assignmentlist' user.id %}">Assignment</a>
+    <a href="{% url 'calendarlist' user.id %}">Calendar</a>
+
+</div>
+
+
+<style>
+    .round{
+      height:100px;
+      width:100px;
+      color:white;
+      background-color:green;
+      border-radius:50%;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+    }
+    .fontInside{
+      font-size:75px;
+    }
+  </style>
+<div class="container-fluid" style="background-color: rgba(22,34,57,0.99);">
+    <div class="row">
+
+    <div class="col-1">
+        <span style="font-size:30px;cursor:pointer;margin-left: 20px;color: white;"
+            onclick="openNav()">&#9776;</span>
+    </div>
+    <!-- Big screen view for main nav -->
+    <div class="col-9  d-none d-md-block">
+        <nav class="navbar navbar-light">
+            <span class="navbar-brand text-light m-0 p-0 ">{{title}}</span>
+
+        </nav>
+    </div>
+    <!-- End of big screen view for main nav -->
+
+    <!-- Small acreen view for main nav -->
+    <div class="col-9  d-block d-md-none">
+
+        <nav class="navbar navbar-light">
+
+            <span class="navbar-brand text-light m-0 p-0">{{title}}</span>
+
+
+
+        </nav>
+    </div>
+    <!-- End of small screen view of main nav -->
+
+    <!-- Start Profile -->
+    <div class="col-1">
+        <div class="dropdown show dropleft">
+
+            <a href="#" role="button" class="mr-auto" id="dropdownMenuLink" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-circle fa-lg pt-3"
+                    aria-hidden="true" style="color: white;"></i></a>
+            <div class="dropdown-menu" style="width: 300px;" aria-labelledby="dropdownMenuLink">
+               
+    
+
+                <center>
+                    <div class="round">
+                        <p class="fontInside"> {{user.username.0}} </p>
+                      </div>
+                    <a class="dropdown-item font-weight-bold">{{user.username}}</a>
+                    <a class="font-weight-light text-dark">{{user.email}}</a>
+                    <hr>
+                    <a class="dropdown-item font-weight-bold" href="{% url 'login' %}">
+                        <i class="fa fa-sign-out" aria-hidden="true"></i>
+                        Signout</a>
+
+                </center>
+            </div>
+        </div>
+    </div>
+    <!-- End Profile -->
+</div>
+
+</div>
+
+<style>
+    .footer {
+       position: fixed;
+       left: 0;
+       bottom: 0;
+       width: 100%;
+       background-color: aliceblue;
+       color: white;
+       text-align: center;
+    }
+    </style>
+<div class="footer d-flex justify-content-end">
+    <p class="m-0 text-dark">developed and Maintained by</p>
+	<a target="_blank" href="https://www.linkedin.com/in/kalai-selvan-8971431b6"> <i class="fa fa-linkedin-square mx-3" aria-hidden="true"> </i></a>
+	<a target="_blank" href="https://www.linkedin.com/in/manichin2"> <i class="fa fa-linkedin-square mx-3" aria-hidden="true"> </i></a>
+	<a target="_blank" href="https://www.linkedin.com/in/reahaan-sheriff-ab9930195?originalSubdomain=in"> <i class="fa fa-linkedin-square mx-3" aria-hidden="true"> </i></a>
+	
+  </div>

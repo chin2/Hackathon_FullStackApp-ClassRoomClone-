@@ -1,0 +1,120 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+	<title>SignUp Page</title>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="/static/css/auth/styles.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+  <body>
+	<div class="container">
+		<div class="d-flex justify-content-center h-100">
+			<div class="card1">
+				{% if des %}
+			<p class="text-center text-danger" style="margin-top: -30px ;">{{des}} </p>
+			{% else %}
+{% endif %}
+				<div class="card-header">
+					<h3>Sign Up</h3>
+					
+				</div>
+				<div class="card-body">
+					<form action="{% url 'signup' %}" id="signUpForm" method="POST">
+						{% csrf_token %}
+						<div class="input-group form-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text"><i class="fas fa-user"></i></span>
+							</div>
+							<input type="text" class="form-control" required name="username" placeholder="username">
+							
+						</div>
+						<div class="input-group form-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text"><i class="fas fa-envelope"></i></span>
+							</div>
+							<input type="email" class="form-control" required name="email" placeholder="@gmail.com">
+						</div>
+						<div class="input-group form-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text"><i class="fas fa-key"></i></span>
+							</div>
+							<input type="password" class="form-control" required name="password" placeholder="password">
+						</div>
+						<div class="input-group form-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text"><i class="fas fa-key"></i></span>
+							</div>
+							<input type="password" class="form-control" required name="cpassword" placeholder="Confirm password">
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="radio" name="dasignation" id="flexRadioDefault1" value="Student">
+							<label class="form-check-label text-white" for="flexRadioDefault1">
+							  Student
+							</label>
+						  </div>
+						  <div class="form-check">
+							<input class="form-check-input" type="radio" name="dasignation" id="flexRadioDefault2" value="Teacher" checked>
+							<label class="form-check-label text-white" for="flexRadioDefault2">
+							  Teacher
+							</label>
+						  </div>
+						<div class="form-group mb-5">
+							<button type="submit" id="submitSignup" disabled  class="btn btn-primary float-right login_btn ">SignUP</button>
+						</div>
+					</form>
+				</div>
+				<div class="card-footer">
+					<div class="d-flex justify-content-center pb-0 mb-0 text-white pl-3">
+						Already have an account?<a class=" ml-3 text-white" href="{% url 'login' %}">Sign In</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<style>
+		.footer {
+		   position: fixed;
+		   left: 0;
+		   bottom: 0;
+		   width: 100%;
+		   background-color: aliceblue;
+		   color: white;
+		   text-align: center;
+		}
+		</style>
+	<div class="footer d-flex justify-content-end">
+		<p class="m-0 text-dark">developed and Maintained by</p>
+	<a target="_blank" href="https://www.linkedin.com/in/kalai-selvan-8971431b6"> <i class="fa fa-linkedin-square mx-3" aria-hidden="true"> </i></a>
+	<a target="_blank" href="https://www.linkedin.com/in/manichin2"> <i class="fa fa-linkedin-square mx-3" aria-hidden="true"> </i></a>
+	<a target="_blank" href="https://www.linkedin.com/in/reahaan-sheriff-ab9930195?originalSubdomain=in"> <i class="fa fa-linkedin-square mx-3" aria-hidden="true"> </i></a>
+	
+	  </div>
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script>
+	$(document).ready(()=>{
+
+		$("#signUpForm").change(()=>{
+			if($("input[name=password]").val()!=""	&& $("input[name=password]").val()==$("input[name=cpassword]").val()){
+				$('#submitSignup').prop('disabled', false);
+			}
+			else{
+				$('#submitSignup').prop('disabled', true);
+
+			}
+		})	
+	})
+</script>  
+
+</body>
+</html>

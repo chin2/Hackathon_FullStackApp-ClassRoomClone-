@@ -1,0 +1,221 @@
+{% extends 'staff/base.html' %}
+{% load static %}
+{% block content %}
+{% static 'images' as baseUrl %}
+
+<!-- Start BAse -->
+<div class="container-fluid">
+    <div class="row d-flex justify-content-end m-3">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#assignment">
+            <i class="fa fa-plus" aria-hidden="true"></i> Assignment
+        </button>
+    </div>
+
+    <!-- end small screen for name and photo-->
+
+    <!-- small screen drop down for all,assigned,returned -->
+    <div class="row d-flex justify-content-center">
+        Assignment list
+    </div>
+    <hr class="" style="max-width: 800px;">
+    <div class="row mt-3 ml-2">
+        <div class="col-3 ">
+            <div class="list-group">
+                <a class="list-group-item list-group-item-action active show" id="list-home-list" data-toggle="list"
+                    href="#list-all" role="tab" aria-controls="home">All</a>
+                <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list"
+                    href="#list-answered" role="tab" aria-controls="profile">Answered</a>
+                <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list"
+                    href="#list-markgiven" role="tab" aria-controls="messages">Mark Given</a>
+            </div>
+        </div>
+        <div class="col-9 ">
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade active show " id="list-all" role="tabpanel" aria-labelledby="list-home-list">
+             
+                    {% if assigmentlist %}
+                    {% for my_item in assigmentlist %}
+                    
+                    <div class="card mb-2 col-12 text-light" style="background-color: rgba(22,34,57,0.99);">
+
+                        <div class="card-body">
+                            <div class="row mb-0">
+                                <div class="col-6">
+                                    <label for="filename" class="col-auto">{{my_item.classcode}}</label>
+                                    <label for="email" class="col-auto">{{my_item.description}}</label>
+                                </div>
+                                <div class="col-6">
+                                    <a href="{{my_item.file}}" target="_blank" class="btn btn-primary col-3"
+                                        style="background-color: skyblue;color:black;border: none;">view</a>
+                                    <label for="total" class="col-auto my-auto">marks: {{my_item.marks}} </label>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                    {% endfor %}
+    
+                    {% else %}
+                    <div class="container d-flex justify-content-center">
+                      <img src="{% static 'img/empty.jpeg' %}" alt="" height="400px" width="500px">
+                    </div>
+                    {% endif %}
+
+                </div>
+                <div class="tab-pane fade" id="list-answered" role="tabpanel" aria-labelledby="list-profile-list">
+                    {% if ansassignmentlist %}
+                    
+                    {% for my_item in ansassignmentlist %}
+                  {% if my_item.assignmentStatus != "markgiven" %}  
+                    <div class="card mb-2 col-12 text-light" style="background-color: rgba(22,34,57,0.99);">
+
+                        <div class="card-body">
+                            <div class="row mb-0">
+                                <div class="col-6">
+                                    <label for="filename" class="col-auto">{{my_item.classcode}}</label>
+                                    <label for="email" class="col-auto">{{my_item.description}}</label>
+                                </div>
+                                <div class="col-6">
+                                    <a href="{{my_item.fileapploaded}}" target="_blank" class="btn btn-primary col-3"
+                                        style="background-color: skyblue;color:black;border: none;">view</a>
+                                    <label for="total" class="col-auto my-auto"> {{my_item.date}} </label>
+                                </div>
+                        
+
+                            </div>
+
+                            <div class="row  mt-2">
+                                <form action="{% url 'updateAssignmentMark' user.id my_item.id %}">
+    
+                                    <div class="row d-flex justify-content-end">
+                                        <div class="col d-flex justify-content end">
+
+                                            <input type="number"
+                                            class="form-control" name="marks" id="" value="{{my_item.marks}}" aria-describedby="helpId" placeholder="">
+                                        <button type="submit"  class="btn btn-primary m-0 p-0" btn-lg btn-block">Submit</button>
+                                        </div>
+                                    </div>
+</form>
+                            </div>
+
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+    
+                    {% else %}
+                    <div class="container d-flex justify-content-center">
+                      <img src="{% static 'img/empty.jpeg' %}" alt="" height="400px" width="500px">
+                    </div>
+                    {% endif %}
+
+                
+                </div>
+                <div class="tab-pane fade" id="list-markgiven" role="tabpanel" aria-labelledby="list-messages-list">
+                    {% if ansassignmentlist %}
+
+                    {% for my_item in ansassignmentlist %}
+                    {% if my_item.assignmentStatus == "markgiven" %}  
+                      <div class="card mb-2 col-12 text-light" style="background-color: rgba(22,34,57,0.99);">
+  
+                          <div class="card-body">
+                              <div class="row mb-0">
+                                  <div class="col-8">
+                                      <label for="filename" class="col-auto">{{my_item.classcode}}</label>
+                                      <label for="email" class="col-auto">{{my_item.description}}</label>
+                                      <input type="number" readonly
+                                     name="marks" id="" value="{{my_item.studentMarks}}" aria-describedby="helpId" placeholder="">
+                                  </div>
+                                  <div class="col-4">
+                                      <a href="{{my_item.fileapploaded}}" target="_blank" class="btn btn-primary col-3"
+                                          style="background-color: skyblue;color:black;border: none; ">view</a>
+                                      <label for="total" class="col-auto my-auto"> {{my_item.date}} </label>
+                                  </div>
+                          
+  
+                              </div>
+  
+                          </div>
+                      </div>
+                      {% endif %}
+                  
+
+    {% endfor %}
+    
+    {% else %}
+    <div class="container d-flex justify-content-center">
+      <img src="{% static 'img/empty.jpeg' %}" alt="" height="400px" width="500px">
+    </div>
+    {% endif %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- End of big screen drop down for all,assigned,returned -->
+
+</div>
+<!-- End base -->
+<!-- Create Assignment Modal -->
+<div class="modal fade" id="assignment" tabindex="-1" role="dialog" aria-labelledby="assignmentTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content text-light" style="background-color: rgba(22,34,57,0.99);">
+            <div class="modal-header">
+                <h5 class="modal-title" id="assignmentTitle">Create Assignment</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="text-light">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- <div class="alert alert-danger" role="alert">
+           Cannot Create Assignment
+         </div>
+         <div class="alert alert-success" role="alert">
+           Assignment Created Successfully
+         </div> -->
+                <form method="POST" action="{% url 'assignmentcreate' user.id %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Class Code</label>
+                        <select class="form-control" name="classcode" id="exampleFormControlSelect1">
+                            {% for my_item in classlist %}
+
+                            <option value={{my_item.classcode}}>{{my_item.classcode}}</option>
+
+                            {% endfor %}
+
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Due (date and time):</label>
+                        <input type="datetime-local" class="form-control" id="" name="duetime" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="heading">Heading</label>
+                        <input type="text" class="form-control" name="heading" placeholder="Heading" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Description</label>
+                        <input type="text" class="form-control" name="description" placeholder="description" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="marks">Marks</label>
+                        <input type="number" name="marks" class="form-control" id="marks" placeholder="Total Marks"
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label for="marks">File</label>
+                        <input id="input-b1" name="inputfile" type="file" class="file form-control"
+                            data-browse-on-zone-click="true" required>
+                    </div>
+                    <center><button type="submit" class="btn btn-primary">Submit</button></center>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

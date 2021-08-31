@@ -1,0 +1,138 @@
+{% extends 'staff/base.html' %}
+{% load static %}
+{% block content %}
+{% static 'images' as baseUrl %}
+
+<!-- start Base -->
+<div class="container-fluid mb-4">
+    <div class="row d-flex justify-content-end m-3">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createClassModel">
+            <i class="fa fa-plus" aria-hidden="true"></i> Create Class
+          </button>
+    </div>
+    <div class="container ">
+        {% if classlist %}
+        <div class="row ">
+        {% for my_item in classlist %}
+
+          <div class="col-md-4 mt-3">
+            <a href="{% url 'viewMoreDetail' user.id my_item.classcode %}" target="_blank">
+           
+              <div class="card bg-light text-light" style="width: 20rem;">
+                <img class="card-img" src="https://i.redd.it/aomzjvb6lv951.png" alt="Card image" height="140px">
+                <div class="card-img-overlay">
+                  <h5 class="card-title">{{my_item.classcode}}</h5>
+                  <p class="card-text"> {{my_item.classname}}</p>
+                  <!-- <img
+                    src="https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                    class="rounded-circle float-right" height="100px" width="90px" alt="staff image">
+                  <p class="card-text">Staff Name</p> -->
+            
+                </div>
+                <div class="card-footer" style="height: auto;">
+                  <div class="row">
+                    <p class="text-dark">
+                      {{my_item.classdescription}}
+                    </p>
+                  </div>
+                  <div class="float-right">
+                    <!-- <a href="#"><i class="fa fa-user mx-1" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-file-o mx-1" aria-hidden="true"></i></a>
+                              <a class="card-text text-dark float-left">view more</a> -->
+                      
+                  </div>
+        
+                </div>
+              </div>
+
+</a>
+          </div>
+          {% endfor %}
+        </div>
+        {% else %}
+    <div class="container d-flex justify-content-center">
+      <img src="{% static 'img/empty.jpeg' %}" alt="" height="400px" width="500px">
+    </div>
+    {% endif %}
+      </div>
+
+     
+    </div>
+</div>
+<br>
+  <!-- Create Class Modal -->
+  <div class="modal fade" id="createClassModel" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content text-light" style="background-color: rgba(22,34,57,0.99);">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Create Class</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="text-light">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- <div class="alert alert-danger"  role="alert">
+          Cannot Create Class
+        </div>
+        <div class="alert alert-success" role="alert">
+          Class Created Successfully
+        </div> -->
+        <form id="">
+          <div class="form-group">
+            <label for="classCode">Class Code</label>
+            <div class="row"><input type="text"  name="classcode" class="form-control col-10 ml-3" id="cclassCode" value={{newCode}}
+                readonly><a href="#" id="copy" class="col-1"><i class="fa fa-clipboard text-light"
+                  aria-hidden="true"></i></a></div>
+          </div>
+          <div class="form-group">
+            <label for="subjectName">Subject Name</label>
+            <input type="text" class="form-control" name="classname" id="subjectName" placeholder="Subject Name" required>
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlTextarea1">Description</label>
+            <input type="text" class="form-control" name="description" placeholder="Description" required>
+
+          </div>
+          <center><a  onclick="createClassForm('{{user.id}}')" class="btn btn-primary">Submit</a></center>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+       
+function createClassForm (a){
+  var classCode=$("input[name=classcode]").val();
+  var className=$("input[name=classname]").val();
+  var Description=$("input[name=description]").val();
+  console.log(classCode)
+        $.ajax({
+                type: "POST",
+                url: "class/create/",
+                data: {
+                   'classcode':classCode,
+                   'classname':className,
+                   'description':Description,
+                   'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                success: function(success) {
+                    console.log(success)
+                    $("#modal_cart_count").modal('hide')
+                    if (success.success) {
+                      alert(success.description)
+                      window.location.reload();
+
+                    } else {
+                      alert(success.description)
+                    }
+
+                }
+            })
+}
+</script>
+
+{% endblock %}
+<!-- End base -->

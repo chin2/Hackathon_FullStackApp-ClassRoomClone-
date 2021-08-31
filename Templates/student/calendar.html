@@ -1,0 +1,47 @@
+{% extends 'student/base.html' %}
+{% load static %}
+{% block content %}
+{% static 'images' as baseUrl %}
+
+<!-- start Base -->
+<div class="container-fluid mt-3">
+
+  <div class="row d-flex justify-content-center">
+        
+    {% if calendarlist %}
+    {% for my_item in calendarlist %}
+   
+      <div class="card mb-2 col-8 text-light" style="background-color: rgba(22,34,57,0.99);">
+
+          <div class="card-body">
+              <div class="row mb-0">
+                  <div class="col-6">
+                      <label for="filename" class="col-auto">code: {{my_item.classcode}}</label>
+                      <label for="email" class="col-auto">date: {{my_item.date}}</label>
+                  </div>
+                  <div class="col-6 d-flex justify-content-end">
+                      <a href="{{my_item.link}}" target="_blank" class="btn btn-primary col-3"
+                          style="background-color: skyblue;color:black;border: none;">JOIN</a>
+                  </div>
+
+
+              </div>
+
+          </div>
+      </div>
+      {% endfor %}
+  
+      {% else %}
+      <div class="container d-flex justify-content-center">
+        <img src="{% static 'img/empty.jpeg' %}" alt="" height="400px" width="500px">
+      </div>
+      {% endif %}
+
+  </div>
+</div>
+
+
+
+
+{% endblock %}
+<!-- End base -->

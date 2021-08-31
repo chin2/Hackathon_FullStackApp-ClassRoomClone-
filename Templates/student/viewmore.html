@@ -1,0 +1,58 @@
+{% extends 'student/base.html' %}
+{% load static %}
+{% block content %}
+{% static 'images' as baseUrl %}
+
+<!-- Start BAse -->
+<div class="container-fluid my-5">
+
+    <div class="card bg-dark text-white mt-5" >
+        <img class="card-img" src="https://i.redd.it/aomzjvb6lv951.png" alt="Card image" height="250px">
+        <div class="card-img-overlay">
+          <h5 class="card-title display-4">{{classdetails.classcode}}</h5>
+          <p class="card-text h1">{{classdetails.classname}}</p>
+          <div class="dropdown show mb-0 pb-0 pt-5 text-center">
+            <a class="text-light" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-arrow-down" aria-hidden="true"></i>
+            </a>
+          
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" href="#">{{classdetails.classcode}}</a>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card mt-3" style="height: auto;">
+        <div class="card-header">
+          Description
+        </div>
+        <div class="card-body">
+          <blockquote class="blockquote mb-0">
+            <p>{{classdetails.classdescription}}</p>
+
+          </blockquote>
+          <div class="row" class="margin-top:20px">
+              <div class="col d-flex justify-content-center">
+<a name="" id="" class="btn " href="{% url 'assignment' user.id %}" style="background-color: #19253B; color:white;" role="button">Assignment</a>
+              </div>
+              <div class="col d-flex justify-content-center">
+                <a name="" id="" class="btn "  style="background-color: #19253B; color:white;" href="{% url 'test' user.id %}" role="button">Test</a>
+
+              </div>
+              <div class="col d-flex justify-content-center">
+                <a name="" id="" class="btn "  style="background-color: #19253B; color:white;" href="{% url 'calendar' user.id %} " role="button">Calendar</a>
+
+              </div>
+          </div>
+        </div>
+      </div>
+
+
+</div>
+
+</div>
+<br>
+<!-- End base -->
+
+{% endblock %}

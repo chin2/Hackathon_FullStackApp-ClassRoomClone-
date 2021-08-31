@@ -1,0 +1,89 @@
+{% extends 'staff/base.html' %}
+{% load static %}
+{% block content %}
+{% static 'images' as baseUrl %}
+
+    
+<!-- start Base -->
+<div class="container-fluid mb-4">
+    <div class="row d-flex justify-content-end m-3">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#meeting">
+            <i class="fa fa-plus" aria-hidden="true"></i> Meeting
+          </button>
+    </div>
+
+    <div class="row d-flex justify-content-center">
+        
+      {% if calendarlist %}
+      {% for my_item in calendarlist %}
+     
+        <div class="card mb-2 col-8 text-light" style="background-color: rgba(22,34,57,0.99);">
+  
+            <div class="card-body">
+                <div class="row mb-0">
+                    <div class="col-6">
+                        <label for="filename" class="col-auto">code: {{my_item.classcode}}</label>
+                        <label for="email" class="col-auto">date: {{my_item.date}}</label>
+                    </div>
+                    <div class="col-6 d-flex justify-content-end">
+                        <a href="{{my_item.link}}" target="_blank" class="btn btn-primary col-3"
+                            style="background-color: skyblue;color:black;border: none;">JOIN</a>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+        {% endfor %}
+    
+        {% else %}
+        <div class="container d-flex justify-content-center">
+          <img src="{% static 'img/empty.jpeg' %}" alt="" height="400px" width="500px">
+        </div>
+        {% endif %}
+
+    </div>
+
+
+</div>
+<br>
+<div class="modal fade" id="meeting" tabindex="-1" role="dialog" aria-labelledby="meetingTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content text-light" style="background-color: rgba(22,34,57,0.99);">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Schedule Class</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" class="text-light">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form method="POST" action="{% url 'createmeeting' user.id %}">
+              {% csrf_token %}
+            <div class="form-group">
+                <label for="exampleFormControlSelect1 " >Class Code</label>
+              <select class="form-control" name="classcode" id="exampleFormControlSelect1" >
+                    {% for my_item in classlist %}
+
+                    <option value={{my_item}}>{{my_item}}</option>
+
+                    {% endfor %}
+
+                </select>
+            </div>
+            <div class="form-group">
+              <label for="classtime">Class (date and time):</label>
+              <input type="datetime-local" class="form-control" id="classtime" name="classtime" required>
+            </div>
+            <div class="form-group">
+              <label for="classCode">Link</label>
+              <input type="url" class="form-control" name="link" id="link" placeholder="Link" required>
+            </div>
+            <center><button type="submit" class="btn btn-primary">Submit</button></center>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

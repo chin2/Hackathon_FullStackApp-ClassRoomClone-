@@ -1,0 +1,99 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login Page</title>
+   
+   
+	<!--Bootsrap 4 CDN-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+    <!--Fontawesome CDN-->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+<!------ Include the above in your HEAD tag ---------->
+	<!--Custom styles-->
+	<link rel="stylesheet" href="../static/css/auth/styles.css">
+
+</head>
+<body>
+<div class="container">
+	<div class="d-flex justify-content-center h-100">
+		<div class="card">
+			{% if des %}
+			<p class="text-center text-danger" style="margin-top: -30px ;">{{des}} </p>
+			{% else %}
+{% endif %}
+			<div class="card-header">
+				<h3>Sign In</h3>
+				
+			</div>
+			<div class="card-body">
+				<form action="{% url 'login' %}" method="POST">
+					{% csrf_token %}
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-user"></i></span>
+						</div>
+						<input type="email" class="form-control"  required name="email" placeholder="email">
+						
+					</div>
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-key"></i></span>
+						</div>
+						<input type="password" class="form-control" required name="password" placeholder="password">
+					</div>
+					<div class="form-group">
+						<input type="submit" value="Login" class="btn float-right login_btn">
+					</div>
+				</form>
+			</div>
+			<div class="card-footer">
+				<div class="d-flex justify-content-center links">
+					Don't have an account?<a class="text-white" href="{% url 'signup' %}">Sign Up</a>
+				</div>
+				<!-- <div class="d-flex justify-content-center">
+					<a href="#">Forgot your password?</a>
+				</div> -->
+			</div>
+		</div>
+	</div>
+</div>
+
+<style>
+    .footer {
+       position: fixed;
+       left: 0;
+       bottom: 0;
+       width: 100%;
+       background-color: aliceblue;
+       color: white;
+       text-align: center;
+    }
+    </style>
+<div class="footer d-flex justify-content-end">
+    <p class="m-0 text-dark">developed and Maintained by</p>
+	<a target="_blank" href="https://www.linkedin.com/in/kalai-selvan-8971431b6"> <i class="fa fa-linkedin-square mx-3" aria-hidden="true"> </i></a>
+	<a target="_blank" href="https://www.linkedin.com/in/manichin2"> <i class="fa fa-linkedin-square mx-3" aria-hidden="true"> </i></a>
+	<a target="_blank" href="https://www.linkedin.com/in/reahaan-sheriff-ab9930195?originalSubdomain=in"> <i class="fa fa-linkedin-square mx-3" aria-hidden="true"> </i></a>
+	
+  </div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<script>
+	// $(document).ready(()=>{
+	// 	alert('hello')
+	// })
+</script>
+</body>
+</html>
