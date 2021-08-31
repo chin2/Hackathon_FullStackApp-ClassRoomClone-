@@ -39,7 +39,7 @@ def test(request,id):
     for i in ClassRoom.objects.filter(students_id=id):
         classlist.append(i.classcode)
     for i in classlist:
-        for j in Test.objects.filter(classcode=i).exclude(studentMarkList_id__studentid=id):
+        for j in Test.objects.filter(classcode=i):
             testlist.append(j.__dict__)
     for i in TestMarks.objects.filter(studentid=id):
         anstestlist.append(i.__dict__)
@@ -58,7 +58,7 @@ def assignment(request,id):
     for i in ClassRoom.objects.filter(students_id=id):
         classlist.append(i.classcode)
     for i in classlist:
-        for j in Assignment.objects.filter(classcode=i).exclude(studentMarkList_id__studentid=id):
+        for j in Assignment.objects.filter(classcode=i):
             assignmentlist.append(j.__dict__)
     for i in AssignmentMarks.objects.filter(studentid=id):
         ansassignmentlist.append(i.__dict__)

@@ -89,34 +89,11 @@ DATABASES = {
             'NAME': 'Cluster0',
             'ENFORCE_SCHEMA': False,
             'CLIENT': {
-                'host':"yourDB"
+                'host':""
             }  
         }
 }
 
-# DATABASES = {
-#         'default': {
-#             'ENGINE': 'djongo',
-#             'NAME': 'reahaan',
-#             'ENFORCE_SCHEMA': 'FALSE',
-#             'CLIENT': {
-#                 'host': 'mongodb+srv://reahaan:mongodb@cluster0.xdb29.mongodb.net/reahaan?retryWrites=true&w=majority'
-#             }  
-#         }
-# }
-
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'djongo',
-#         'CLIENT': {
-#             'host': 'mongodb+srv://admin:admin@semicolon.hejxv.mongodb.net/semicolon?retryWrites=true&w=majority',
-#             'username': 'admin',
-#             'password': 'admin',
-#             'authMechanism': 'SCRAM-SHA-1'
-#         }
-#     }
-# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
